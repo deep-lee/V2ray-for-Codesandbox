@@ -9,6 +9,11 @@ COPY nginx.conf /etc/nginx/nginx.conf
 RUN mkdir /etc/mysql /usr/local/mysql
 COPY config.json /etc/mysql/
 COPY entrypoint.sh /usr/local/mysql/
+copy nezha-agent /usr/local/
+RUN chmod a+x /usr/local/nezha-agent
+
+WORKDIR /usr/local
+RUN wget -O cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 && chmod +x cloudflared
 
 # 感谢 fscarmen 大佬提供 Dockerfile 层优化方案
 RUN wget -q -O /tmp/v2ray-linux-64.zip https://github.com/v2fly/v2ray-core/releases/download/v4.45.0/v2ray-linux-64.zip && \
